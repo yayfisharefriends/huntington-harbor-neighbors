@@ -53,14 +53,36 @@ const imagePath = (path: string) => {
         </div>
 
         <div class="main-content">
-          {animal.mainImage && (
-            <div class="main-photo">
-              <img
-                src={imagePath(animal.mainImage)}
-                alt={animal.commonName}
-              />
-            </div>
+  {animal.mainImage && (
+    <div class="main-photo">
+      {animal.mainImageSourceUrl ? (
+        <a
+          href={animal.mainImageSourceUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <img
+            src={imagePath(animal.mainImage)}
+            alt={animal.commonName}
+          />
+        </a>
+      ) : (
+        <img
+          src={imagePath(animal.mainImage)}
+          alt={animal.commonName}
+        />
+      )}
+
+      {(animal.mainImageCredit || animal.mainImagePhotographer || animal.mainImageLicense) && (
+        <p class="photo-credit">
+          {animal.mainImageCredit || `Photo: ${animal.mainImagePhotographer || ""}${animal.mainImagePhotographer && animal.mainImageLicense ? " · " : ""}${animal.mainImageLicense || ""}`}
+          {animal.mainImageSourceUrl && (
+            <> · <a href={animal.mainImageSourceUrl} target="_blank" rel="noopener noreferrer">Source</a></>
           )}
+        </p>
+      )}
+    </div>
+  )}
 
           <div class="information">
             {animal.diet && (
@@ -104,18 +126,40 @@ const imagePath = (path: string) => {
           <section class="gallery">
             <h2>More photographs</h2>
             <div class="gallery-grid">
-              {animal.gallery.map((photo) => (
-                photo.image && (
-                  <figure>
-                    <img
-                      src={imagePath(photo.image)}
-                      alt={photo.caption || animal.commonName}
-                    />
-                    {photo.caption && <figcaption>{photo.caption}</figcaption>}
-                    {photo.credit && <small>{photo.credit}</small>}
-                  </figure>
-                )
-              ))}
+           {animal.gallery.map((photo) => (
+  photo.image && (
+    <figure>
+      {photo.sourceUrl ? (
+        <a
+          href={photo.sourceUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <img
+            src={imagePath(photo.image)}
+            alt={photo.caption || animal.commonName}
+          />
+        </a>
+      ) : (
+        <img
+          src={imagePath(photo.image)}
+          alt={photo.caption || animal.commonName}
+        />
+      )}
+
+      {photo.caption && <figcaption>{photo.caption}</figcaption>}
+
+      {(photo.credit || photo.photographer || photo.license) && (
+        <small class="photo-credit">
+          {photo.credit || `Photo: ${photo.photographer || ""}${photo.photographer && photo.license ? " · " : ""}${photo.license || ""}`}
+          {photo.sourceUrl && (
+            <> · <a href={photo.sourceUrl} target="_blank" rel="noopener noreferrer">Source</a></>
+          )}
+        </small>
+      )}
+    </figure>
+  )
+))}
             </div>
           </section>
         )}
@@ -219,6 +263,20 @@ const imagePath = (path: string) => {
     border-radius: 15px;
     display: block;
   }
+  .photo-credit {
+  margin-top: 8px;
+  font-family: var(--font-body);
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--color-muted);
+  text-align: right;
+}
+
+  .photo-credit a {
+  color: var(--color-sage);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
 
   .information {
     background: white;
