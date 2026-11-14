@@ -79,6 +79,22 @@ content:
           path: species
           extensions: [jpg, jpeg, png, webp, avif]
 
+      - name: mainImagePhotographer
+        label: Main photograph photographer
+        type: string
+
+      - name: mainImageCredit
+        label: Main photograph credit
+        type: string
+
+      - name: mainImageLicense
+        label: Main photograph license
+        type: string
+
+      - name: mainImageSourceUrl
+        label: Main photograph original source URL
+        type: string
+
       - name: gallery
         label: Additional photographs
         type: object
