@@ -23,5 +23,5 @@ gallery:
     photographer: Renee Bodine / USFWS
     sourceUrl: https://www.fws.gov/media/brown-pelican
 status: Published
-featured: false
+featured: true
 ---
