@@ -1,7 +1,7 @@
 ---
-slug: pacific-harbor-seal
-commonName: Pacific Harbor Seal
-scientificName: Phoca vitulina
+slug: california-sea-lion
+commonName: California Sea Lion
+scientificName: Zalophus californianus
 animalGroup: Mammals
 family: Phocidae
 order: Carnivora
@@ -62,6 +62,13 @@ references:
     notes: General species biology; verify current regional details.
 status: Published
 featured: false
+description: Large and in charge, you may see these guys lounging on docks near
+  the fire station, or resurfacing to get more air with a distinctive "HUFF!"
+  sound. Some residents affectionately call the one who resurfaces around
+  Portofino Cove "Mabel."
+coolFacts: Can be distinguished from seals by their external ear flaps!
+threatsAndConservation: Human-related threats include fishing gear entanglement,
+  marine pollution, and harmful algal blooms (domoic acid)
 ---
 This profile is a starter example and is intentionally saved as a **Draft**.
 Its local occurrence, conservation classifications, measurements, and
