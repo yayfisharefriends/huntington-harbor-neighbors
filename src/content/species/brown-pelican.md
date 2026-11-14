@@ -22,6 +22,6 @@ gallery:
   - image: /media/brownpelo.jpg
     photographer: Renee Bodine / USFWS
     sourceUrl: https://www.fws.gov/media/brown-pelican
-status: Draft
+status: Published
 featured: false
 ---
