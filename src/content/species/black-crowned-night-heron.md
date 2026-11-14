@@ -21,4 +21,6 @@ threatsAndConservation: Wetland loss, polluted runoff, and disturbance around
   vegetation, and clean water supports local populations.
 status: Published
 featured: true
+mainImage: /media/img2573original-1.jpg
+mainImagePhotographer: Haley Ziegel
 ---
