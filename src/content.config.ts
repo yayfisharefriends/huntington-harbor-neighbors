@@ -44,7 +44,7 @@ const species = defineCollection({
       photographer: z.string().optional(),
       credit: z.string().optional(),
       license: z.string().optional(),
-      sourceUrl: z.string().url().optional()
+      sourceUrl: z.string().optional().default("")
     })).default([]),
 
     status: z.enum([
