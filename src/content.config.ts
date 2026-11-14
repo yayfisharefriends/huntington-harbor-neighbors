@@ -33,6 +33,10 @@ const species = defineCollection({
     threatsAndConservation: z.string().optional(),
 
     mainImage: z.string().optional(),
+    mainImagePhotographer: z.string().optional(),
+    mainImageCredit: z.string().optional(),
+    mainImageLicense: z.string().optional(),
+    mainImageSourceUrl: z.string().url().optional(),
 
     gallery: z.array(z.object({
       image: z.string().optional(),
@@ -40,7 +44,7 @@ const species = defineCollection({
       photographer: z.string().optional(),
       credit: z.string().optional(),
       license: z.string().optional(),
-      sourceUrl: z.string().optional()
+      sourceUrl: z.string().url().optional()
     })).default([]),
 
     status: z.enum([
