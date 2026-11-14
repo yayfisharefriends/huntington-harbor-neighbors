@@ -1,0 +1,53 @@
+---
+import { getCollection } from "astro:content";
+const allSpecies = await getCollection("species");
+const published = allSpecies.filter((entry) => entry.data.status === "Published");
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="A community field guide to wildlife of Huntington Beach, Huntington Harbor, and nearby coastal wetlands." />
+    <title>Local Wildlife | Huntington Beach Field Guide</title>
+    <style>
+      :root { color-scheme: light; --forest:#244c3c; --ink:#20332b; --muted:#65756d; --sand:#f4f1e8; }
+      * { box-sizing:border-box; }
+      body { margin:0; font-family: Georgia, "Times New Roman", serif; color:var(--ink); background:#fbfaf6; }
+      header { padding:1.2rem clamp(1rem,5vw,4rem); display:flex; justify-content:space-between; align-items:center; gap:1rem; border-bottom:1px solid #e6e4dc; }
+      .brand { font:700 .9rem Arial,sans-serif; letter-spacing:.16em; color:var(--forest); }
+      nav { font: .85rem Arial,sans-serif; color:var(--muted); }
+      .hero { padding:clamp(3rem,8vw,7rem) clamp(1rem,8vw,7rem); background:linear-gradient(120deg,#e8eee5,#f4f1e8); }
+      .eyebrow { font:700 .72rem Arial,sans-serif; letter-spacing:.16em; text-transform:uppercase; color:#577564; }
+      h1 { max-width:850px; font-size:clamp(2.7rem,7vw,5.8rem); line-height:.98; font-weight:500; margin:1rem 0; }
+      .intro { max-width:650px; font:1.08rem/1.7 Arial,sans-serif; color:#52645a; }
+      main { max-width:1100px; margin:auto; padding:3rem 1.25rem 5rem; }
+      .panel { background:white; border:1px solid #e7e7df; border-radius:18px; padding:1.5rem; }
+      .status { display:inline-block; background:#f2eee1; color:#665b3d; border-radius:99px; padding:.4rem .7rem; font:700 .7rem Arial,sans-serif; text-transform:uppercase; letter-spacing:.08em; }
+      h2 { font-size:1.8rem; font-weight:500; margin:.8rem 0; }
+      p { font: .95rem/1.7 Arial,sans-serif; color:var(--muted); }
+      footer { padding:2rem; text-align:center; border-top:1px solid #e6e4dc; font: .8rem Arial,sans-serif; color:var(--muted); }
+      a { color:var(--forest); }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="brand">LOCAL WILDLIFE</div>
+      <nav>Huntington Beach · Harbor · Coastal Wetlands</nav>
+    </header>
+    <section class="hero">
+      <div class="eyebrow">A local nature field guide</div>
+      <h1>Discover the wildlife around you.</h1>
+      <p class="intro">An evolving field guide to the animals of Huntington Beach, Huntington Harbor, and the surrounding coastal wetlands.</p>
+    </section>
+    <main>
+      <section class="panel">
+        <span class="status">Catalog foundation</span>
+        <h2>{published.length} published species</h2>
+        <p>The species editor and structured catalog are being set up. Profiles marked Draft or Needs review stay out of the public catalog until they have been checked and approved.</p>
+        <p>Administrator editing will be available through Pages CMS after this project is connected to your GitHub account.</p>
+      </section>
+    </main>
+    <footer>Local Wildlife Field Guide · Huntington Beach, California</footer>
+  </body>
+</html>
