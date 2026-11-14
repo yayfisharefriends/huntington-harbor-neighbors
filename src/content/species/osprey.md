@@ -21,4 +21,7 @@ mainImagePhotographer: Bill Shreve / USFWS
 mainImageSourceUrl: https://www.fws.gov/media/osprey-wichita-mountains-refuge
 status: Published
 featured: true
+gallery:
+  - image: /media/img7733.jpg
+    photographer: Haley Ziegel
 ---
