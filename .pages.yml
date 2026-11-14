@@ -1,3 +1,4 @@
+
 media:
   input: public/media
   output: /media
@@ -11,74 +12,73 @@ content:
     path: src/content/species
     filename: "{slug}.md"
     format: yaml-frontmatter
+
     view:
       primary: commonName
-      fields: [commonName, scientificName, animalGroup, status, localOccurrence]
-      search: [commonName, scientificName, family, order]
+      fields: [commonName, scientificName, animalGroup, nativeStatus, status]
+      search: [commonName, scientificName]
       sort: [commonName, scientificName, status]
       default:
         sort: commonName
         order: asc
+
     fields:
       - name: slug
         label: URL name (lowercase, hyphens)
         type: string
         required: true
+
       - name: commonName
         label: Common name
         type: string
         required: true
+
       - name: scientificName
         label: Scientific name
         type: string
         required: true
+
       - name: animalGroup
         label: Animal group
         type: select
         required: true
         options:
           values: [Birds, Mammals, Reptiles, Amphibians, Fish, Invertebrates]
-      - name: family
-        label: Family
-        type: string
-      - name: order
-        label: Order
-        type: string
+
       - name: nativeStatus
         label: Native status
         type: select
+        required: true
         options:
           values: [Native, Introduced, Naturalized, Migratory, Unknown]
-      - name: localOccurrence
-        label: Local occurrence confidence
-        type: select
-        options:
-          values: [Confirmed, Probable, Seasonal, Historical, Needs verification]
-      - name: habitats
-        label: Habitats
-        type: select
-        options:
-          multiple: true
-          values:
-            - Coastal wetlands
-            - Estuary
-            - Harbor and marina
-            - Sandy beach
-            - Dunes
-            - Rocky shore and tide pools
-            - Nearshore ocean
-            - Coastal sage scrub
-            - Freshwater pond or channel
-            - Parks and urban areas
-      - name: localNotes
-        label: Local distribution notes
+
+      - name: diet
+        label: Diet
         type: text
+
+      - name: ecologicalRole
+        label: Ecological role
+        type: text
+
+      - name: description
+        label: Description
+        type: text
+
+      - name: coolFacts
+        label: Cool facts
+        type: text
+
+      - name: threatsAndConservation
+        label: Threats and conservation actions
+        type: text
+
       - name: mainImage
         label: Main photograph
         type: image
         options:
           path: species
           extensions: [jpg, jpeg, png, webp, avif]
+
       - name: gallery
         label: Additional photographs
         type: object
@@ -93,103 +93,34 @@ content:
             options:
               path: species
               extensions: [jpg, jpeg, png, webp, avif]
+
           - name: caption
             label: Caption
             type: string
+
           - name: photographer
             label: Photographer
             type: string
+
           - name: credit
             label: Required credit line
             type: string
+
           - name: license
             label: License or permission
             type: string
+
           - name: sourceUrl
             label: Original image source URL
             type: string
-      - name: identification
-        label: Identification and physical description
-        type: text
-      - name: similarSpecies
-        label: Similar species and differences
-        type: text
-      - name: size
-        label: Size
-        type: text
-      - name: diet
-        label: Diet
-        type: text
-      - name: behavior
-        label: Behavior and natural history
-        type: text
-      - name: reproduction
-        label: Reproduction and life cycle
-        type: text
-      - name: ecologicalRole
-        label: Ecological role
-        type: text
-      - name: conservationStatus
-        label: Conservation status summary
-        type: text
-      - name: iucnStatus
-        label: IUCN Red List category
-        type: select
-        options:
-          values: [Not evaluated, Data deficient, Least concern, Near threatened, Vulnerable, Endangered, Critically endangered, Extinct in the wild, Extinct, Not applicable, Not verified]
-      - name: californiaStatus
-        label: California state status
-        type: string
-      - name: federalStatus
-        label: U.S. federal status
-        type: string
-      - name: threats
-        label: Threats and conservation actions
-        type: text
-      - name: observationTips
-        label: Where and when to observe
-        type: text
-      - name: interestingFacts
-        label: Interesting facts
-        type: text
-      - name: references
-        label: Scientific references
-        type: object
-        list:
-          collapsible:
-            collapsed: true
-            summary: "{title} ({index})"
-        fields:
-          - name: title
-            label: Source title
-            type: string
-          - name: organization
-            label: Author or organization
-            type: string
-          - name: url
-            label: Source URL
-            type: string
-          - name: publicationDate
-            label: Publication date
-            type: string
-          - name: accessedDate
-            label: Date checked
-            type: string
-          - name: notes
-            label: What this source supports
-            type: text
-      - name: lastReviewed
-        label: Last scientifically reviewed
-        type: string
-      - name: reviewer
-        label: Reviewer
-        type: string
+
       - name: status
         label: Publishing status
         type: select
         required: true
         options:
           values: [Draft, Needs review, Published]
+
       - name: featured
         label: Feature on homepage
         type: boolean
