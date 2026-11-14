@@ -1,53 +1,333 @@
+
 ---
 import { getCollection } from "astro:content";
+
 const allSpecies = await getCollection("species");
-const published = allSpecies.filter((entry) => entry.data.status === "Published");
+const species = allSpecies
+  .filter((entry) => entry.data.status === "Published")
+  .sort((a, b) =>
+    a.data.commonName.localeCompare(b.data.commonName)
+  );
+
+const imagePath = (path) => {
+  if (!path) return "";
+  return path.startsWith("/") ? path : `/media/${path}`;
+};
 ---
-<!doctype html>
+
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="A community field guide to wildlife of Huntington Beach, Huntington Harbor, and nearby coastal wetlands." />
-    <title>Local Wildlife | Huntington Beach Field Guide</title>
-    <style>
-      :root { color-scheme: light; --forest:#244c3c; --ink:#20332b; --muted:#65756d; --sand:#f4f1e8; }
-      * { box-sizing:border-box; }
-      body { margin:0; font-family: Georgia, "Times New Roman", serif; color:var(--ink); background:#fbfaf6; }
-      header { padding:1.2rem clamp(1rem,5vw,4rem); display:flex; justify-content:space-between; align-items:center; gap:1rem; border-bottom:1px solid #e6e4dc; }
-      .brand { font:700 .9rem Arial,sans-serif; letter-spacing:.16em; color:var(--forest); }
-      nav { font: .85rem Arial,sans-serif; color:var(--muted); }
-      .hero { padding:clamp(3rem,8vw,7rem) clamp(1rem,8vw,7rem); background:linear-gradient(120deg,#e8eee5,#f4f1e8); }
-      .eyebrow { font:700 .72rem Arial,sans-serif; letter-spacing:.16em; text-transform:uppercase; color:#577564; }
-      h1 { max-width:850px; font-size:clamp(2.7rem,7vw,5.8rem); line-height:.98; font-weight:500; margin:1rem 0; }
-      .intro { max-width:650px; font:1.08rem/1.7 Arial,sans-serif; color:#52645a; }
-      main { max-width:1100px; margin:auto; padding:3rem 1.25rem 5rem; }
-      .panel { background:white; border:1px solid #e7e7df; border-radius:18px; padding:1.5rem; }
-      .status { display:inline-block; background:#f2eee1; color:#665b3d; border-radius:99px; padding:.4rem .7rem; font:700 .7rem Arial,sans-serif; text-transform:uppercase; letter-spacing:.08em; }
-      h2 { font-size:1.8rem; font-weight:500; margin:.8rem 0; }
-      p { font: .95rem/1.7 Arial,sans-serif; color:var(--muted); }
-      footer { padding:2rem; text-align:center; border-top:1px solid #e6e4dc; font: .8rem Arial,sans-serif; color:var(--muted); }
-      a { color:var(--forest); }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Huntington Harbor Neighbors | Local Wildlife</title>
+    <meta
+      name="description"
+      content="Explore the wildlife of Huntington Harbor and the surrounding coast."
+    />
   </head>
+
   <body>
     <header>
-      <div class="brand">LOCAL WILDLIFE</div>
-      <nav>Huntington Beach · Harbor · Coastal Wetlands</nav>
+      <a href="/" class="brand">Huntington Harbor Neighbors</a>
+      <span class="header-note">A guide to our local wildlife</span>
     </header>
-    <section class="hero">
-      <div class="eyebrow">A local nature field guide</div>
-      <h1>Discover the wildlife around you.</h1>
-      <p class="intro">An evolving field guide to our neighbors in the Huntington Harbor, and the surrounding land.</p>
-    </section>
+
     <main>
-      <section class="panel">
-        <span class="status">Catalog foundation</span>
-        <h2>{published.length} published species</h2>
-        <p>The species editor and structured catalog are being set up. Profiles marked Draft or Needs review stay out of the public catalog until they have been checked and approved.</p>
-        <p>Administrator editing will be available through Pages CMS after this project is connected to your GitHub account.</p>
+      <section class="hero">
+        <p class="eyebrow">EXPLORE OUR COASTAL BACKYARD</p>
+        <h1>Meet your wild<br />neighbors.</h1>
+        <p class="hero-description">
+          Discover the birds, mammals, reptiles, fish, and other remarkable
+          wildlife that call Huntington Harbor and our surrounding coast home.
+        </p>
+        <a href="#species" class="explore-button">Explore the species ↓</a>
+      </section>
+
+      <section id="species" class="catalog">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">THE WILDLIFE DIRECTORY</p>
+            <h2>Our wild neighbors</h2>
+          </div>
+          <span class="count">{species.length} species</span>
+        </div>
+
+        {species.length > 0 ? (
+          <div class="species-grid">
+            {species.map((entry) => (
+              <a
+                class="species-card"
+                href={`/species/${entry.data.slug}`}
+              >
+                {entry.data.mainImage ? (
+                  <img
+                    src={imagePath(entry.data.mainImage)}
+                    alt={entry.data.commonName}
+                    class="card-image"
+                  />
+                ) : (
+                  <div class="image-placeholder">Wildlife photograph</div>
+                )}
+
+                <div class="card-content">
+                  <span class="animal-group">
+                    {entry.data.animalGroup}
+                  </span>
+                  <h3>{entry.data.commonName}</h3>
+                  <p class="scientific">
+                    {entry.data.scientificName}
+                  </p>
+                  <span class="native-status">
+                    {entry.data.nativeStatus}
+                  </span>
+                </div>
+              </a>
+            ))}
+          </div>
+        ) : (
+          <div class="empty-state">
+            <h3>Our wildlife directory is growing.</h3>
+            <p>
+              Species profiles will appear here as they are published.
+              Check back soon!
+            </p>
+          </div>
+        )}
       </section>
     </main>
-    <footer>Local Wildlife Field Guide · Huntington Beach, California</footer>
+
+    <footer>
+      <p>Huntington Harbor Neighbors</p>
+      <span>Celebrating and learning about the wildlife around us.</span>
+    </footer>
   </body>
 </html>
+
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #f7f8f4;
+    color: #293b30;
+    font-family: Arial, sans-serif;
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 22px 7%;
+    background: white;
+    border-bottom: 1px solid #e7ebe4;
+  }
+
+  .brand {
+    color: #304c3c;
+    font-weight: bold;
+    text-decoration: none;
+  }
+
+  .header-note {
+    color: #78847b;
+    font-size: 13px;
+  }
+
+  .hero {
+    padding: 95px 8%;
+    background: #e9efe6;
+    text-align: center;
+  }
+
+  .eyebrow {
+    color: #6d876e;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 2px;
+  }
+
+  h1 {
+    margin: 18px 0;
+    color: #294735;
+    font-family: Georgia, serif;
+    font-size: clamp(48px, 8vw, 82px);
+    line-height: 1.05;
+  }
+
+  .hero-description {
+    max-width: 580px;
+    margin: 0 auto 28px;
+    color: #58685c;
+    font-size: 17px;
+    line-height: 1.8;
+  }
+
+  .explore-button {
+    display: inline-block;
+    padding: 13px 22px;
+    border-radius: 30px;
+    background: #46664e;
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+  }
+
+  .catalog {
+    max-width: 1200px;
+    margin: auto;
+    padding: 75px 28px;
+  }
+
+  .section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    margin-bottom: 30px;
+  }
+
+  h2 {
+    margin: 8px 0 0;
+    color: #294735;
+    font-family: Georgia, serif;
+    font-size: 36px;
+  }
+
+  .count {
+    color: #78847b;
+    font-size: 13px;
+  }
+
+  .species-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+  }
+
+  .species-card {
+    overflow: hidden;
+    border: 1px solid #e7ebe4;
+    border-radius: 14px;
+    background: white;
+    color: inherit;
+    text-decoration: none;
+    transition: transform .2s, box-shadow .2s;
+  }
+
+  .species-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px #293b3015;
+  }
+
+  .card-image,
+  .image-placeholder {
+    display: block;
+    width: 100%;
+    height: 235px;
+    object-fit: cover;
+  }
+
+  .image-placeholder {
+    display: grid;
+    place-items: center;
+    background: #e9efe6;
+    color: #718174;
+    font-family: Georgia, serif;
+  }
+
+  .card-content {
+    padding: 20px;
+  }
+
+  .animal-group {
+    color: #718b72;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  h3 {
+    margin: 9px 0 3px;
+    color: #304c3c;
+    font-family: Georgia, serif;
+    font-size: 23px;
+  }
+
+  .scientific {
+    margin: 0 0 15px;
+    color: #849087;
+    font-family: Georgia, serif;
+    font-style: italic;
+  }
+
+  .native-status {
+    display: inline-block;
+    padding: 5px 11px;
+    border-radius: 20px;
+    background: #edf2eb;
+    color: #526e54;
+    font-size: 11px;
+  }
+
+  .empty-state {
+    padding: 65px 20px;
+    border: 1px dashed #cbd6c9;
+    border-radius: 14px;
+    text-align: center;
+  }
+
+  .empty-state h3 {
+    font-size: 25px;
+  }
+
+  .empty-state p {
+    color: #78847b;
+  }
+
+  footer {
+    padding: 35px 20px;
+    background: white;
+    color: #526457;
+    text-align: center;
+  }
+
+  footer p {
+    font-family: Georgia, serif;
+    font-weight: bold;
+  }
+
+  footer span {
+    color: #849087;
+    font-size: 13px;
+  }
+
+  @media (max-width: 800px) {
+    .species-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 550px) {
+    header {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .hero {
+      padding: 70px 22px;
+    }
+
+    .species-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .section-heading {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 10px;
+    }
+  }
+</style>
