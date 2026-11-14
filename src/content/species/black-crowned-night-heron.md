@@ -23,4 +23,8 @@ status: Published
 featured: true
 mainImage: /media/img2573original-1.jpg
 mainImagePhotographer: Haley Ziegel
+gallery:
+  - image: /media/img2125original-1.jpg
+    photographer: Haley Ziegel
+  - {}
 ---
