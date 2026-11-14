@@ -21,6 +21,11 @@ threatsAndConservation: Loss of wetlands, contaminants, and disturbance at
 gallery:
   - image: /media/img2576original.jpg
     photographer: Haley Ziegel
+  - image: /media/20240531greatblueheronwethersfieldcovepd207951.jpg
+    photographer: Paul Danese
+    sourceUrl: https://commons.wikimedia.org/wiki/File:20240531_great_blue_heron_wethersfield_cove_PD207951.jpg
 status: Published
 featured: true
+mainImage: /media/greatblueheroningwc21718.jpg
+mainImageSourceUrl: https://commons.wikimedia.org/wiki/File:Great_blue_heron_in_GWC_(21718).jpg
 ---
