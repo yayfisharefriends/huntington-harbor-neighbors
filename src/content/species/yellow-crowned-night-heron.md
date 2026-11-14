@@ -24,4 +24,7 @@ gallery:
     caption: Alexa Ziegel
 status: Published
 featured: true
+mainImage: /media/nycticoraxviolaceusatbeach.jpg
+mainImagePhotographer: Ianaré Sévi
+mainImageSourceUrl: https://commons.wikimedia.org/wiki/File:Nycticorax_violaceus_(at_beach).jpg
 ---
