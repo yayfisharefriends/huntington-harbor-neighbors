@@ -50,14 +50,24 @@ const imagePath = (path: string) => {
             <p class="eyebrow">THE WILDLIFE DIRECTORY</p>
             <h2>Our wild neighbors</h2>
           </div>
-          <span class="count">{species.length} species</span>
+          <span class="count" id="species-count">{species.length} species</span>
         </div>
+<nav class="category-filters" aria-label="Filter species by animal group">
+  <button class="filter-button active" data-filter="All Species">All Species</button>
+  <button class="filter-button" data-filter="Birds">Birds</button>
+  <button class="filter-button" data-filter="Fish">Fish</button>
+  <button class="filter-button" data-filter="Mammals">Mammals</button>
+  <button class="filter-button" data-filter="Reptiles">Reptiles</button>
+  <button class="filter-button" data-filter="Amphibians">Amphibians</button>
+  <button class="filter-button" data-filter="Invertebrates">Invertebrates</button>
+</nav>
 
         {species.length > 0 ? (
           <div class="species-grid">
             {species.map((entry) => (
               <a
                 class="species-card"
+                data-group={entry.data.animalGroup}
                 href={`/species/${entry.data.slug}`}
               >
                 {entry.data.mainImage ? (
@@ -173,6 +183,35 @@ const imagePath = (path: string) => {
     color: white;
     text-decoration: none;
     font-size: 14px;
+  }
+  .category-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 25px 0 35px;
+  }
+
+  .filter-button {
+    padding: 9px 18px;
+    border: 1px solid #d7ded3;
+    border-radius: 30px;
+    background: transparent;
+    color: #52685a;
+    font-family: Georgia, serif;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background .2s, color .2s;
+  }
+
+  .filter-button:hover,
+  .filter-button.active {
+    background: #46664e;
+    border-color: #46664e;
+    color: white;
+  }
+
+  .species-card.hidden {
+    display: none;
   }
 
   .catalog {
@@ -332,3 +371,38 @@ const imagePath = (path: string) => {
     }
   }
 </style>
+
+<script>
+  const filterButtons = document.querySelectorAll(".filter-button");
+  const speciesCards = document.querySelectorAll(".species-card");
+  const speciesCount = document.querySelector("#species-count");
+
+  filterButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const selectedGroup = button.getAttribute("data-filter");
+
+      filterButtons.forEach((item) => {
+        item.classList.remove("active");
+      });
+
+      button.classList.add("active");
+
+      let visibleCount = 0;
+
+      speciesCards.forEach((card) => {
+        const cardGroup = card.getAttribute("data-group");
+
+        const shouldShow =
+          selectedGroup === "All Species" || cardGroup === selectedGroup;
+
+        card.classList.toggle("hidden", !shouldShow);
+
+        if (shouldShow) {
+          visibleCount++;
+        }
+      });
+
+      speciesCount.textContent = `${visibleCount} species`;
+    });
+  });
+</script>
