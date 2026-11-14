@@ -22,6 +22,8 @@ threatsAndConservation: Coastal wetland loss, pollution, and disturbance reduce
 gallery:
   - image: /media/img4431.jpg
     caption: Alexa Ziegel
+  - image: /media/img5859original.jpg
+    caption: Haley Ziegel
 status: Published
 featured: true
 mainImage: /media/nycticoraxviolaceusatbeach.jpg
