@@ -1,0 +1,328 @@
+
+---
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+  const species = await getCollection("species");
+
+  return species
+    .filter((entry) => entry.data.status === "Published")
+    .map((entry) => ({
+      params: { slug: entry.data.slug },
+      props: { species: entry }
+    }));
+}
+
+const { species } = Astro.props;
+const animal = species.data;
+
+const imagePath = (path) => {
+  if (!path) return "";
+  return path.startsWith("/") ? path : `/media/${path}`;
+};
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{animal.commonName} | Huntington Harbor Neighbors</title>
+    <meta
+      name="description"
+      content={`Learn about the ${animal.commonName}, its diet, ecological role, and conservation.`}
+    />
+  </head>
+
+  <body>
+    <header class="site-header">
+      <a href="/" class="brand">Huntington Harbor Neighbors</a>
+      <a href="/" class="back-link">← Explore wildlife</a>
+    </header>
+
+    <main>
+      <section class="profile">
+        <div class="intro">
+          <div class="labels">
+            <span class="group">{animal.animalGroup}</span>
+            <span class="native">{animal.nativeStatus}</span>
+          </div>
+
+          <h1>{animal.commonName}</h1>
+          <p class="scientific">{animal.scientificName}</p>
+        </div>
+
+        <div class="main-content">
+          {animal.mainImage && (
+            <div class="main-photo">
+              <img
+                src={imagePath(animal.mainImage)}
+                alt={animal.commonName}
+              />
+            </div>
+          )}
+
+          <div class="information">
+            {animal.diet && (
+              <section class="info-section">
+                <h2>Diet</h2>
+                <p>{animal.diet}</p>
+              </section>
+            )}
+
+            {animal.ecologicalRole && (
+              <section class="info-section">
+                <h2>Ecological role</h2>
+                <p>{animal.ecologicalRole}</p>
+              </section>
+            )}
+
+            {animal.description && (
+              <section class="info-section">
+                <h2>Description</h2>
+                <p>{animal.description}</p>
+              </section>
+            )}
+
+            {animal.coolFacts && (
+              <section class="info-section">
+                <h2>Cool facts</h2>
+                <p>{animal.coolFacts}</p>
+              </section>
+            )}
+          </div>
+        </div>
+
+        {animal.threatsAndConservation && (
+          <section class="conservation">
+            <h2>Threats and conservation</h2>
+            <p>{animal.threatsAndConservation}</p>
+          </section>
+        )}
+
+        {animal.gallery?.length > 0 && (
+          <section class="gallery">
+            <h2>More photographs</h2>
+            <div class="gallery-grid">
+              {animal.gallery.map((photo) => (
+                photo.image && (
+                  <figure>
+                    <img
+                      src={imagePath(photo.image)}
+                      alt={photo.caption || animal.commonName}
+                    />
+                    {photo.caption && <figcaption>{photo.caption}</figcaption>}
+                    {photo.credit && <small>{photo.credit}</small>}
+                  </figure>
+                )
+              ))}
+            </div>
+          </section>
+        )}
+      </section>
+    </main>
+
+    <footer>
+      Huntington Harbor Neighbors · Celebrating local wildlife
+    </footer>
+  </body>
+</html>
+
+<style>
+  :global(*) {
+    box-sizing: border-box;
+  }
+
+  :global(body) {
+    margin: 0;
+    background: #f7f8f4;
+    color: #28372f;
+    font-family: Arial, sans-serif;
+    line-height: 1.7;
+  }
+
+  .site-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 22px 7%;
+    background: #fff;
+    border-bottom: 1px solid #e6eae3;
+  }
+
+  .brand {
+    color: #304c3c;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .back-link {
+    color: #526d5b;
+    text-decoration: none;
+  }
+
+  main {
+    max-width: 1180px;
+    margin: auto;
+    padding: 55px 28px;
+  }
+
+  .intro {
+    margin-bottom: 32px;
+  }
+
+  .labels {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+  }
+
+  .labels span {
+    padding: 5px 13px;
+    border-radius: 30px;
+    background: #e6eee5;
+    color: #3e6149;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+  }
+
+  h1 {
+    margin: 0;
+    color: #294735;
+    font-family: Georgia, serif;
+    font-size: clamp(38px, 6vw, 60px);
+    line-height: 1.15;
+  }
+
+  .scientific {
+    margin-top: 8px;
+    color: #78847b;
+    font-family: Georgia, serif;
+    font-style: italic;
+    font-size: 19px;
+  }
+
+  .main-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 38px;
+    align-items: start;
+  }
+
+  .main-photo img {
+    width: 100%;
+    height: 540px;
+    object-fit: cover;
+    border-radius: 15px;
+    display: block;
+  }
+
+  .information {
+    background: white;
+    padding: 28px 32px;
+    border-radius: 15px;
+    border: 1px solid #e8ece5;
+  }
+
+  .info-section {
+    margin-bottom: 23px;
+  }
+
+  .info-section:last-child {
+    margin-bottom: 0;
+  }
+
+  h2 {
+    color: #496d50;
+    font-family: Georgia, serif;
+    font-size: 23px;
+    margin: 0 0 8px;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  .conservation {
+    margin-top: 38px;
+    padding: 27px 32px;
+    background: #edf2eb;
+    border-radius: 15px;
+  }
+
+  .gallery {
+    margin-top: 48px;
+  }
+
+  .gallery h2 {
+    margin-bottom: 20px;
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  figure {
+    margin: 0;
+  }
+
+  figure img {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+    border-radius: 12px;
+    display: block;
+  }
+
+  figcaption {
+    margin-top: 8px;
+    color: #536457;
+  }
+
+  small {
+    color: #78847b;
+  }
+
+  footer {
+    padding: 28px;
+    text-align: center;
+    color: #738176;
+    background: #fff;
+    border-top: 1px solid #e6eae3;
+  }
+
+  @media (max-width: 750px) {
+    .site-header {
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    main {
+      padding: 35px 18px;
+    }
+
+    .main-content {
+      grid-template-columns: 1fr;
+    }
+
+    .main-photo img {
+      height: 330px;
+    }
+
+    .information {
+      padding: 24px;
+    }
+
+    .gallery-grid {
+      grid-template-columns: 1fr;
+    }
+
+    figure img {
+      height: 250px;
+    }
+  }
+</style>
