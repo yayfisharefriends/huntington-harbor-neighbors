@@ -23,4 +23,5 @@ mainImagePhotographer: Ken-ichi Ueda
 mainImageSourceUrl: https://commons.wikimedia.org/wiki/File%3ABermudella_angelensis_641749838.jpg
 status: Published
 featured: true
+mainImage: /media/bermudellaangelensis641749838.jpg
 ---
