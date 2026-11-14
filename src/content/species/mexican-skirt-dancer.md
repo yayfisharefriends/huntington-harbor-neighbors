@@ -25,4 +25,7 @@ mainImagePhotographer: Ron Woheau
 mainImageSourceUrl: https://mexican-marine-life.org/mexican-skirt-dancer/
 status: Published
 featured: true
+gallery:
+  - image: /media/20260901215627original.jpg
+    photographer: Haley Ziegel
 ---
