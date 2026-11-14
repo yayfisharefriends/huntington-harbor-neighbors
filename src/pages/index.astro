@@ -9,7 +9,7 @@ const species = allSpecies
     a.data.commonName.localeCompare(b.data.commonName)
   );
 
-const imagePath = (path) => {
+const imagePath = (path: string) => {
   if (!path) return "";
   return path.startsWith("/") ? path : `/media/${path}`;
 };
