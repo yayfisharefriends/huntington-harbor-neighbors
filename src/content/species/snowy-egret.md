@@ -22,4 +22,7 @@ mainImagePhotographer: Burns, Chelsi/USFWS
 mainImageSourceUrl: https://www.fws.gov/media/snowy-egret-1?utm_source=chatgpt.com
 status: Published
 featured: true
+gallery:
+  - image: /media/img6871original.jpg
+    caption: Haley Ziegel
 ---
