@@ -1,5 +1,5 @@
 ---
-slug: california-sea-lion
+slug: pacific-harbor-seal
 commonName: California Sea Lion
 scientificName: Zalophus californianus
 animalGroup: Mammals
