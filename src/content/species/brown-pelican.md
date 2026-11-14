@@ -18,10 +18,9 @@ coolFacts: |-
 threatsAndConservation: Fishing hooks and line, harmful algal blooms, and
   disturbance can injure pelicans. Dispose of fishing gear safely and give
   resting birds space.
-gallery:
-  - image: /media/brownpelo.jpg
-    photographer: Renee Bodine / USFWS
-    sourceUrl: https://www.fws.gov/media/brown-pelican
 status: Published
 featured: true
+mainImage: /media/brownpelo-1.jpg
+mainImagePhotographer: Renee Bodine / USFWS
+mainImageSourceUrl: https://www.fws.gov/media/brown-pelican
 ---
