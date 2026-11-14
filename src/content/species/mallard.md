@@ -12,10 +12,13 @@ description: Mallards are familiar ducks in calm harbor waters and nearby
   chestnut breasts, while females are mottled brown. Both sexes have a
   blue-purple wing patch bordered by white. They feed by tipping forward in
   shallow water rather than diving deeply.
-coolFacts: |-
+coolFacts: >-
   Many domestic duck breeds descend from Mallards.
+
   Females have camouflaged nesting plumage.
-  Mallards can hybridize with related duck species.
+
+  Feeding mallards bread can actually kill them, as the bread can make them feel
+  full without providing any nutritional value.
 threatsAndConservation: Habitat degradation, pollution, and feeding by people
   can cause problems for urban ducks. Avoid feeding bread and help keep
   waterways clean.
