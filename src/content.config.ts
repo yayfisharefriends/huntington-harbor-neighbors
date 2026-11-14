@@ -36,7 +36,7 @@ const species = defineCollection({
     mainImagePhotographer: z.string().optional(),
     mainImageCredit: z.string().optional(),
     mainImageLicense: z.string().optional(),
-    mainImageSourceUrl: z.union([z.string().url(), z.literal("")]).optional(),
+    mainImageSourceUrl: z.string().optional().default(""),
 
     gallery: z.array(z.object({
       image: z.string().optional(),
