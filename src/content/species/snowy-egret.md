@@ -17,9 +17,8 @@ coolFacts: |-
   Plume hunting once severely reduced egret populations.
 threatsAndConservation: Wetland loss, polluted runoff, and disturbance at
   colonies can harm egrets. Wetland restoration and clean water benefit them.
-mainImage: /media/13720jpg.webp
-mainImagePhotographer: Burns, Chelsi/USFWS
-mainImageSourceUrl: https://www.fws.gov/media/snowy-egret-1?utm_source=chatgpt.com
+mainImage: /media/screen-shot-2026-11-13-at-111241-pm.png
+mainImagePhotographer: Haley Ziegel
 status: Published
 featured: true
 gallery:
