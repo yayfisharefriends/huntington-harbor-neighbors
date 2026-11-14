@@ -16,7 +16,7 @@ export async function getStaticPaths() {
 const { species } = Astro.props;
 const animal = species.data;
 
-const imagePath = (path) => {
+const imagePath = (path: string) => {
   if (!path) return "";
   return path.startsWith("/") ? path : `/media/${path}`;
 };
